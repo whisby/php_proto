@@ -1,0 +1,41 @@
+﻿/// <reference path="../references.scss" />;
+
+._tabular {
+    display: table;
+
+
+    > div {
+        display: table-row;
+        > div {
+            display: table-cell;
+            padding:0 0.3em;
+            vertical-align:middle;
+
+            .field, label{
+                padding:0;
+                display:initial;
+                font-size:1em;
+
+                .hidden{
+                    display:none;
+                }
+            }
+
+        }
+    }
+
+    &.def {
+
+        > div {
+            font-weight: 100;
+
+            > div:nth-child(odd) {
+                font-weight: 500;
+                opacity:0.7;
+                &::after {
+                    content: ': ';
+                }
+            }
+        }
+    }
+}

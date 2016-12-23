@@ -1,0 +1,87 @@
+﻿/// <reference path="../references.scss" />
+
+@function explode($string,$dem) {
+    $list: ();
+    $sum: str-length($string);
+
+    @for $i from 1 through $sum {
+        $str: str-index($string,$dem);
+
+        @if str-length($string) >= 1 and $str == null {
+            $list: append($list,$string);
+            $string: '';
+        }
+
+        @if type-of($str) == number {
+            $each: str-slice($string,0,($str - 1));
+            $list: append($list,$each);
+            $string: str-slice($string,($str + 1), $sum);
+        }
+    }
+
+    @return $list;
+}
+
+
+@function gcd($a, $b) {
+  @if $b == 0 {
+    @return $a;
+  }
+  @else {
+    @return gcd($b, $a%$b);
+  }
+}
+
+
+@function only($direction, $value) {
+    @if($direction == top) {
+    @return $value 0 0 0;
+  }
+
+  @if($direction == right) {
+    @return 0 $value 0 0;
+  }
+
+  @if($direction == bottom) {
+    @return  0 0 $value 0;
+  }
+
+  @if($direction == left) {
+    @return 0 0 0 $value;
+  }
+  @return 0;
+}
+
+
+
+
+@function get-form-control-height(){
+    @return ($font-size-form-control + ($padding-form-controls * 2));
+}
+
+
+@function val-not-empty($value){
+    @return $value != null and $value != inherit and $value != initial;
+}
+
+
+
+
+/* COLORS */
+
+@function tint($color, $amt){
+    @return mix(#FFF, $color, $amt);
+}
+
+@function shade($color, $amt){
+    @return mix(#000, $color, $amt);
+}
+
+
+@function set-black-or-white($color) {
+  @if (lightness($color) > 50) {
+    @return rgba(0,0,0,0.8); // Lighter backgorund, return dark color
+  } @else {
+    @return rgba(255,255,255,0.8); // Darker background, return light color
+  }
+}

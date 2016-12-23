@@ -1,0 +1,392 @@
+﻿/// <reference path="_config" />
+/// <reference path="_functions" />
+/// <reference path="_element-defs" />
+/// <reference path="color-defs" />
+
+
+/* ELEMENT MIXINS */
+
+@mixin allHeaders() {
+
+    h1, h2, h3, h4, h5, h6 {
+        @content;
+    }
+}
+
+
+/* MEDIA QUERIES */
+
+
+@mixin mediaSmall {
+    @media (min-width: $breakpoint-sm) {
+        @content;
+    }
+}
+
+@mixin mediaMedium {
+    @media (min-width: $breakpoint-md) {
+        @content;
+    }
+}
+
+
+@mixin mediaLarge {
+    @media (min-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin mediahuge {
+    @media (min-width: $breakpoint-hg) and (min-height: $breakpoint-hg-vert) {
+        @content;
+    }
+}
+
+
+
+
+
+/* HELPER MIXINS */
+
+@mixin only($direction, $value, $attr) {
+    @if($direction == top) {
+        #{$attr}: $value 0 0 0;
+    }
+
+    @if($direction == right) {
+        #{$attr}: 0 $value 0 0;
+    }
+
+    @if($direction == bottom) {
+        #{$attr}: 0 0 $value 0;
+    }
+
+    @if($direction == left) {
+        #{$attr}: 0 0 0 $value;
+    }
+}
+
+
+
+
+
+
+@mixin float($direction) {
+    @if($direction == "left") {
+        float: left;
+        clear: right;
+    }
+
+    @if($direction == "right") {
+        float: right;
+    }
+}
+
+@mixin withDescendantsAll($className) {
+
+    .#{$className}, .-#{$className} > * {
+        @content;
+    }
+}
+
+
+@mixin withDescendantsSelectors($className, $selectors...) {
+
+    $p: unquote('%'+ $className);
+
+    #{$p} {
+        @content;
+    }
+
+    .#{$className} {
+        @extend #{$p};
+    }
+
+    .-#{$className} {
+        @each $item in $selectors {
+            $innerItems: explode(#{$item}, ',');
+
+            @each $innserItem in $innerItems {
+                > #{$innserItem} {
+                    @extend #{$p};
+                }
+            }
+        }
+    }
+}
+
+@mixin withDescendantsBlock($className) {
+    @include withDescendantsSelectors($className, $all-block-descendant-elements) {
+        @content
+    }
+}
+
+@mixin withDescendantsBlockAndInlineBlock($className) {
+    $list: join($all-block-descendant-elements, $all-inline-block-elements);
+
+    @include withDescendantsSelectors($className, $list) {
+        @content
+    }
+}
+
+@mixin withDescendantsCommon($className) {
+    @include withDescendantsSelectors($className, $all-common-descendant-elements) {
+        @content
+    }
+}
+
+
+@mixin descendants($selectors...) {
+    @each $item in $selectors {
+        $innerItems: explode(#{$item}, ',');
+
+        @each $innserItem in $innerItems {
+            > #{$innserItem} {
+                @content;
+            }
+        }
+    }
+}
+
+
+@mixin descendantsBlock() {
+    @include descendants($all-block-descendant-elements) {
+        @content
+    }
+}
+
+@mixin descendantsBlockAndInlineBlock() {
+    $list: join($all-block-descendant-elements, $all-inline-block-elements);
+
+    @include descendants($list) {
+        @content
+    }
+}
+
+@mixin descendantsCommon() {
+    $list: join($all-block-elements, $all-inline-block-elements);
+
+    @include descendants($all-common-descendant-elements) {
+        @content
+    }
+}
+
+
+@mixin cols($prefix) {
+    @each $col-num in $col-nums {
+
+        $col-res: 1 / $col-num;
+        $c: $col-res;
+        $n: 1;
+
+        @while $c < 1 {
+            $d: $col-num;
+            $g: gcd($n, $d);
+            $a: $n / $g;
+            $b: $d / $g;
+            $f: #{$a}-#{$b};
+            $p: $c * 100;
+
+            $className: #{$prefix}col-#{$f};
+
+            @include withDescendantsCommon($className) {
+                width: #{$p+'%'};
+            }
+
+            $c: $c + $col-res;
+            $n: $n + 1;
+        }
+    }
+}
+
+
+
+@mixin glyph-block($valign: middle) {
+
+    > span, i {
+        display: inline;
+        vertical-align: $valign;
+
+
+        &[class^=icon]:first-child, &[class*=icon]:first-child, &.material-icons:first-child{
+            margin-right: $glyph-margin;
+        }
+
+        &[class^=icon]:last-child, &[class*=icon]:last-child, &.material-icons:first-child{
+            margin-left: $glyph-margin;
+        }
+    }
+}
+
+
+@mixin button-selected($bg: '', $text-color: '') {
+    @if $bg == '' {
+        $bg: $color-bg-button-select;
+    }
+
+    @if $text-color == '' {
+        $text-color: $color-button-text-active;
+    }
+
+    background-color: $bg;
+    color: $text-color;
+    box-shadow: inset -2px 1px 6px -2px rgba(0,0,0,0.4);
+}
+
+
+//outputs nothing if empty
+@mixin set-attr($attr, $val) {
+    @if(val-not-empty($val)) {
+        #{$attr}: $val;
+    }
+}
+
+@mixin color-set($map) {
+    //@TODO Write Function  attr-not-null-or-inherit($value);
+    //@TODO Write Mixin : attr-if-not-null-or-inherit($attrName, $value);
+
+    $bg-active: map-get($map, bg-active);
+    $headings: map-get($map, heading);
+
+    @include set-attr(background-color, map-get($map, bg));
+    @include set-attr(color, map-get($map, font));
+
+
+    @if(val-not-empty($bg-active)) {
+        &.selected, &:active {
+            background-color: $bg-active;
+        }
+    }
+
+    a {
+        @include set-attr(color, map-get($map, anchor));
+
+        &:link, &.link {
+            @include set-attr(color, map-get($map, link));
+        }
+
+        &:visited {
+            @include set-attr(color, map-get($map, link-visited));
+        }
+
+        &:hover, &:active {
+            @include set-attr(color, map-get($map, link-active));
+        }
+    }
+    //BUTTONS
+    #{$all-button-elements} {
+        @include set-attr(color, map-get($map, button-text));
+        @include set-attr(background-color, map-get($map, button-fill));
+        @include set-attr(border, map-get($map, button-border));
+
+        $button-fill: map-get($map, button-fill);
+
+        @if(val-not-empty($button-fill)) {
+            @include button-text-shadow($button-fill);
+            @include button-border(inverse-value-mix($button-fill, 10%, 50, true));
+        }
+
+
+        &:hover {
+            @include set-attr(background-color, map-get($map, button-fill-active));
+        }
+
+        &:focus {
+            @include set-attr(background-color, map-get($map, button-fill-focus));
+        }
+
+        &.accent {
+            @include set-attr(color, map-get($map, button-accent-text));
+            @include set-attr(background-color, map-get($map, button-accent-fill));
+            @include set-attr(border, map-get($map, button-border));
+
+            $button-accent-fill: map-get($map, button-accent-fill);
+
+            @if(val-not-empty($button-accent-fill)) {
+                @include button-text-shadow($button-accent-fill);
+                @include button-border(inverse-value-mix($button-accent-fill, 10%, 50, true));
+            }
+
+            &:hover {
+                @include set-attr(background-color, map-get($map, button-accent-fill-active));
+            }
+
+            &:focus {
+                @include set-attr(background-color, map-get($map, button-accent-fill-focus));
+            }
+        }
+    }
+    //BUTTON GROUPS
+    .button-group {
+        $button-group-fill: map-get($map, buttongroup-fill);
+        $button-group-text: map-get($map, buttongroup-text);
+        @include set-attr(color, $button-group-text);
+        @include set-attr(background-color, $button-group-fill);
+
+        > a, > span, > li, > .button {
+            @include set-attr(color, map-get($map, buttongroup-text));
+
+            @if(val-not-empty($button-group-fill)) {
+                border-color: inverse-value-mix($button-group-fill, 18%);
+                @include button-text-shadow($button-group-fill);
+            }
+
+            &:link, &:visited, &:hover, &:focus {
+                @include set-attr(color, map-get($map, buttongroup-text));
+            }
+
+            &:hover, &.selected {
+                @include set-attr(color, map-get($map, buttongroup-text-select));
+                @include set-attr(background-color, map-get($map, buttongroup-fill-select));
+            }
+        }
+
+
+        &.accent {
+            $button-group-accent-fill: map-get($map, buttongroup-accent-fill);
+            $button-group-accent-text: map-get($map, buttongroup-accent-text);
+            @include set-attr(color, map-get($map, buttongroup-accent-text ));
+            @include set-attr(background-color, map-get($map, buttongroup-accent-fill));
+
+            > a, > span, > li, > .button {
+                @include set-attr(color, map-get($map, buttongroup-accent-text));
+
+                @if(val-not-empty($button-group-accent-fill)) {
+                    border-color: inverse-value-mix($button-group-accent-fill, 18%,50,true);
+                    // mix(invert($button-group-accent-fill), $button-group-accent-fill, 18%);
+                    @include button-text-shadow($button-group-accent-fill);
+                }
+
+                &:link, &:visited, &:hover, &:focus {
+                    @include set-attr(color, map-get($map, buttongroup-accent-text));
+                }
+
+                &:hover, &.selected {
+                    @include set-attr(color, buttongroup-accent-text-select);
+                    @include set-attr(background-color, buttongroup-accent-fill-select);
+                }
+            }
+        }
+    }
+    //STYLED SELECT
+    .styled-select {
+        @include set-attr(background-color, map-get($map, select));
+    }
+
+
+    #{$all-text-inputs}, textarea {
+        @include set-attr(background-color, map-get($map, input-fill));
+        @include set-attr(border-color, map-get($map, input-border));
+        @include set-attr(color, map-get($map, input-font));
+    }
+
+    @for $i from 1 through 6 {
+        $h-color: map-get($headings, $i);
+
+        @if(val-not-empty($h-color)) {
+            #{h}#{$i} {
+                color: $h-color;
+            }
+        }
+    }
+}

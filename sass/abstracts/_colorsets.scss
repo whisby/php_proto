@@ -1,0 +1,120 @@
+﻿/// <reference path="_color-defs.scss" />;
+
+
+/* INTERFACE 
+
+    $IMap : (
+    bg,
+    bg-active,
+    font,
+    anchor,
+    link,
+    link-active,
+    link-visited,
+    heading : ( 1,2,3,4,5,6 )
+    button-fill,
+    button-fill-active,
+    button-fill-focus,
+    button-text,
+    button-border,
+    button-accent-fill,
+    button-accent-fill-active,
+    button-accent-fill-focus,
+    button-accent-text,
+    button-accent-border,
+    button-group-fill,
+    button-group-text,
+    button-group-border,
+    button-group-active,
+    button-group-select,
+    select-fill,
+    )
+
+*/
+
+
+
+
+@function colorset-define($colorset, $ext : ()){
+    $map1 : map-merge(
+                    (   
+                bg: inherit,
+                bg-active : null,
+                border : inherit,
+                font : inherit,
+                anchor : inherit,
+                link : inherit,
+                link-active : inherit,
+                link-visited : inherit,
+                heading : 
+                    (
+                        1: inherit,
+                        2: inherit,
+                        3: inherit,
+                        4: inherit,
+                        5: inherit,
+                        6: inherit 
+                    ),
+                input-font : inherit,
+                input-fill : inherit,
+                input-border : inherit,
+                button-fill: inherit,
+                button-fill-active : inherit,
+                button-fill-focus: inherit,
+                button-text: inherit,
+                button-border : inherit,
+                button-accent-fill : inherit,
+                button-accent-fill-active : inherit,
+                button-accent-fill-focus : inherit,
+                button-accent-text : inherit,
+                button-accent-border : inherit,
+                buttongroup-fill : inherit,
+                buttongroup-text : inherit,
+                buttongroup-text-select : inherit,
+                buttongroup-fill-active : inherit,
+                buttongroup-fill-select : inherit,
+
+                buttongroup-accent-fill : inherit,
+                buttongroup-accent-text : inherit,
+                buttongroup-accent-text-select : inherit,
+                buttongroup-accent-fill-active : inherit,
+                buttongroup-accent-fill-select : inherit,
+
+                select-fill : inherit,
+                gradient : null,
+
+            ), $ext
+        );
+    @return map-merge($map1, $colorset);
+}
+
+
+@function set-heading-color($color){
+    @return (
+        1 : $color,
+        2 : $color,
+        3 : $color,
+        4 : $color,
+        5 : $color,
+        6 : $color
+        );
+}
+
+
+
+
+//$colorset-header
+
+$colorset-primary : () !default;
+
+$colorset-primary : colorset-define($colorset-primary, 
+    (
+        bg:  darken($color-theme-primary, 10%),
+        font : #FFF,
+        anchor : #FFF,
+        link: #FFF,
+        link-visited: #FFF,
+        button-fill: lighten($color-theme-primary, 20%),
+        button-text: #FFF        
+    )
+);

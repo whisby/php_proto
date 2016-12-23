@@ -1,0 +1,28 @@
+﻿/// <reference path="../references.scss" />
+
+.validation-summary-errors {
+    background: set-black-or-white($color-error);
+    color: $color-error;
+}
+
+
+    .validation-summary-errors li {
+        list-style: none;
+    }
+
+    .error, .field-validation-error{
+    color: $color-error;
+}
+    .field-validation-error{
+        font-size:0.5em;
+    }
+
+
+    input.error{
+        background-color:mix($color-error, $color-bg-input, 3%);
+    }
+
+    label.error{
+        margin-top:-0.2rem;
+        position:absolute;
+    }

@@ -1,0 +1,209 @@
+﻿/* COLORS */
+
+@function colors-tint($color, $amt) {
+    @return mix(#FFF, $color, $amt);
+}
+
+@function colors-shade($color, $amt) {
+    @return mix(#000, $color, $amt);
+}
+
+
+@function inverse-mix($color, $amt) {
+    @return mix(invert($color), $color, $amt);
+}
+
+
+@function inverse-value-mix($color, $amt, $axis: null, $reverse: null, $saturation-divisor: 0.1) {
+    $mix-color: #000000;
+    @if($axis == null){
+        $axis  : 50;
+    }
+
+    @if($reverse == null){
+        $reverse : false;
+    }
+
+
+    @if($reverse == true) {
+        $mix-color: #FFFFFF;
+    }
+    $l : lightness($color);
+
+    @if($l < $axis) {
+        $mix-color: invert($mix-color);
+    }
+
+    $m : mix($mix-color, $color, $amt);
+    $l2 : lightness($mix-color);
+    $d : abs($l - $l2) * $saturation-divisor;
+    $m : saturate($m, $d);
+    @return $m;
+}
+
+
+@mixin button-text-shadow($color){
+    text-shadow:0 0 2px inverse-value-mix($color, 15%, 50, true);
+}
+
+
+@mixin button-border($color){
+    box-shadow: inset 0 0 0 0.05em $color;
+}
+
+//theme colors
+$color-brand: #f2664a !default;
+$color-theme-primary: #0f9e9c !default;
+$color-theme-secondary: #788383 !default;
+$color-alert: #f00 !default;
+$color-error: #ff1111 !default;
+$color-success: #1cdc5b !default;
+$color-pop: $color-alert !default;
+$color-blend: rgba(0,0,0,0.3) !default;
+$color-good: $color-success !default;
+$color-rejected: $color-error !default;
+$color-text: #222 !default;
+$color-navigatable: #0a7b7a !default;
+$color-actionable: #0a7b7a !default;
+$color-actionable-inline: #ccc !default;
+$color-actionable-surface: #e4ecec !default;
+$color-actionable-surface-accent: inverse-value-mix($color-actionable, 10%, 50, true) !default;
+$color-active: #78f6d5 !default;
+$color-intro: #f0b67f !default;
+$color-separator: #aaa !default;
+$color-compliment: #e7f1f0 !default;
+$color-indicator: $color-active !default;
+$color-waiting: #dd3d56 !default;
+
+
+//background colors
+
+$color-bg-site: #FFF !default;
+$color-bg-content: #fafafc !default;
+$color-bg-input: #FFF !default;
+
+//font colors
+$color-font-site: #222 !default;
+$color-font-content: $color-font-site !default;
+$color-font-input: $color-font-content !default;
+$color-font-anchor: $color-actionable !default;
+$color-font-link: $color-navigatable !default;
+$color-font-link-active: saturate($color-font-link, 40%) !default;
+$color-font-link-visited: $color-font-link !default;
+$color-font-heading: colors-tint($color-font-content, 30%) !default;
+
+/**************************
+* INDICATOR COLORS
+**************************/
+
+$colors-account: ( AIP: #8f498e, RID: #668741, FF_E: #875a48, Artist_Broker: #47897d, Builder: #8f6f47, B_B: #416f8d, IFS: #555ca9 );
+$colors-segment: ( AL: #ff99cb, HC: #c4ffa0, HOSP: #84ffe8, MF: #cccccc, Graphics: #ffc98f, FAC : #abb2ff );
+
+/***************************
+*  LAYOUT COLORS 
+****************************/
+
+
+//header
+
+//INPUT COLORS
+
+$color-input-inline-button: $color-actionable-inline !default;
+$color-input-inline-button-active: $color-actionable !default;
+$color-bg-input-text: $color-bg-input !default;
+$color-font-input-text: $color-font-input !default;
+
+//BUTTON COLORS
+
+$color-button-fill: $color-actionable-surface !default;
+$color-button-fill-active: colors-shade($color-button-fill, 20%) !default;
+$color-button-fill-focus: colors-tint($color-button-fill, 20%) !default;
+$color-button-text: inverse-value-mix($color-actionable-surface, 70%) !default;
+$color-button-text-active: $color-button-text !default;
+$color-button-border: inverse-value-mix($color-actionable-surface, 10%);
+
+//BUTTON ACCENT
+
+
+$color-accent-button-fill: $color-actionable-surface-accent !default;
+$color-accent-button-fill-text: $color-actionable-surface-accent !default;
+$color-accent-button-fill-active: colors-tint($color-accent-button-fill, 20%) !default;
+$color-accent-button-fill-focus: colors-tint($color-accent-button-fill, 20%) !default;
+
+$color-accent-button-text: inverse-value-mix($color-actionable-surface-accent, 93%) !default;
+$color-accent-button-text-active: $color-accent-button-text !default;
+
+$color-accent-button-border: inverse-value-mix($color-accent-button-fill, 40%);
+
+//BUTTON SELECTED
+
+$color-bg-button-select: rgba(0,0,0,0.05);
+
+
+//button group
+$color-button-group-fill: $color-button-fill !default;
+$color-button-group-fill-active: $color-button-fill-active !default;
+$color-button-group-fill-select: $color-button-fill-active !default;
+
+//select
+
+$color-select-fill: $color-button-fill !default;
+
+//table
+$color-border-table: #eaeaea !default;
+$color-row-table: mix($color-actionable, colors-shade($color-bg-content, 2%), 1%) !default;
+$color-row-table-active: saturate(colors-shade($color-row-table, 5%), 25%) !default;
+
+
+//view switcher
+
+$color-view-switcher-border: $color-theme-primary !default;
+$color-font-view-switcher: $color-font-site !default;
+$color-font-view-switcher-selected-icon: $color-theme-primary  !default;
+
+//construct colors
+
+$color-border: #ccc !default;
+$color-border-input: colors-shade($color-border, 30%) !default;
+$color-line: $color-border !default;
+
+$color-avatar-fill: $color-actionable !default;
+$color-avatar-text: #FFF !default;
+
+/* STATUS INDICATOR */
+
+$color-bg-status-indicator: $color-bg-site;
+$color-bg-status-indicator-selected: $color-indicator !default;
+
+$color-bg-opacity-status-indicator: 0.1 !default;
+$color-bg-opacity-status-indicator-selected: 1 !default;
+
+$color-font-status-indicator: colors-shade($color-bg-status-indicator, 20%) !default;
+$color-font-status-indicator-selected: scale-color($color-font-status-indicator, $lightness : -70%) !default;
+
+//MODAL
+
+$color-bg-modal: $color-bg-content !default;
+$color-border-modal: scale-color($color-border, $lightness : 70%) !default;
+$color-bg-wash: rgba(0,0,0,0.7) !default;
+
+//POPOVER
+
+$color-bg-popover: $color-bg-content !default;
+$color-font-popover: $color-font-content !default;
+
+
+
+//NOTIFIER
+
+$color-bg-notifier-success: #4890B3 !default;
+$color-bg-notifier-error: #A71A1A !default;
+$color-bg-notifier-info: #e6ac47 !default;
+
+
+//GLYPH / ICON
+
+$color-trigger-glyph: rgba($color-font-site, 0.05) !default;
+
+
+//GENERAL

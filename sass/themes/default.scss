@@ -1,0 +1,61 @@
+﻿/// <reference path="../references.scss" />;
+@import "../themes_config/default-config";
+@import "../app";
+
+/*MAIN*/
+
+.main-content {
+    .dialog & {
+        background-image: none;
+    }
+}
+
+/*TOOLBAR*/
+
+@mixin tool-bar() {
+}
+
+.flex-editor > .tool-bar {
+
+    .bg-alt-content, .bg-alt2-content {
+        @include tool-bar();
+    }
+
+    &.bg-alt-content, &.bg-alt2-content {
+        @include tool-bar();
+    }
+}
+
+
+/* MODAL */
+
+.modal-title {    
+    color:black;
+    @include tool-bar();
+}
+
+/* BGs */
+
+
+    .bg-alt2-content {
+
+        a:link, a:visited{
+            text-decoration:underline;
+            &:not(.button){
+                
+            }
+
+           &.button{
+                text-decoration:none;
+            }
+            
+        }
+
+
+        .button-group {
+
+            a:link, a:visited{
+                text-decoration:none;
+            }
+        }
+    }

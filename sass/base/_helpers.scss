@@ -1,0 +1,684 @@
+/// <reference path="../references.scss" />;
+
+/* MARGIN AND PADDING HELPERS */
+@each $dir in $space-directions {
+    $d: -#{$dir};
+
+    @if $dir == 'center' {
+        $d: '';
+    }
+
+    @include withDescendantsCommon(margin#{$d}) {
+        margin#{$d}:$margin-base;
+    }
+
+    @include withDescendantsCommon(margin-wide#{$d}) {
+        margin#{$d}: $margin-wide;
+    }
+
+    @include withDescendantsCommon(padding#{$d}) {
+        padding#{$d}: $padding-base;
+    }
+
+    @include withDescendantsCommon(padding-tich#{$d}) {
+        padding#{$d}: $padding-tich;
+    }
+
+    @include withDescendantsCommon(padding-comfy#{$d}) {
+        padding#{$d}:$padding-comfy;
+    }
+
+
+    @include withDescendantsCommon(padding-roomy#{$d}) {
+        padding#{$d}: $padding-roomy;
+    }
+
+    @include withDescendantsCommon(border#{$d}) {
+        border#{$d}: 1px solid rgba(0,0,0,0.1);
+    }
+
+    @include withDescendantsCommon(margin#{$d}-clear) {
+        margin#{$d}: 0 !important;
+    }
+
+    @include withDescendantsCommon(padding#{$d}-clear) {
+        padding#{$d}: 0 !important;
+    }
+
+    @include withDescendantsCommon(margin#{$d}-only) {
+        margin: only($dir, $margin-base);
+    }
+
+    @include withDescendantsCommon(padding#{$d}-only) {
+        padding: only($dir,$padding-base);
+    }
+}
+
+@include withDescendantsCommon(guttered) {
+    padding: 0 $padding-comfy;
+}
+
+@include withDescendantsCommon(guttered-padded) {
+    padding: $padding-base $padding-comfy;
+}
+
+
+
+/* FLOATS */
+@include withDescendantsCommon(justify-left) {
+    @include float(left);
+}
+
+@include withDescendantsCommon(justify-right) {
+    @include float(right);
+}
+
+.-justify-left, .-justify-right {
+    overflow: hidden;
+}
+
+/* CLEARS */
+@include withDescendantsCommon(clear) {
+    clear: both;
+}
+
+
+/*SPANS*/
+
+@include withDescendantsCommon(span-height) {
+    display: block;
+    height: 100%;
+}
+
+@include withDescendantsCommon(span-width) {
+    display: block;
+    width: 100%;
+}
+
+/*TEXT*/
+
+.text-caps {
+    text-transform: capitalize;
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
+.text-lower {
+    text-transform: lowercase;
+}
+
+/*VISIBILITY*/
+
+.hidden {
+    display: none;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.overflow-hide {
+    overflow: hidden;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+
+/*ALIGNMENT*/
+
+@each $a in $valignments {
+    .#{$a}, .-#{$a} > * {
+        vertical-align: $a;
+    }
+}
+
+@each $a in $talign {
+    .text-#{$a} {
+        text-align: $a;
+    }
+}
+
+@include withDescendantsCommon('block-center') {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*POSITIONS*/
+
+@each $position in $positions {
+    .position-#{$position} {
+        position: $position;
+    }
+}
+
+@each $l in $locations-v {
+    .location-#{$l} {
+        #{$l}: 0;
+    }
+
+    @each $h in $locations-h {
+        .location-#{$l}-#{$h} {
+            #{$l}: 0;
+            #{$h}: 0;
+        }
+    }
+}
+
+/*DISPLAYS*/
+
+@include withDescendantsSelectors("inline-block", join($all-inline-elements, $all-block-descendant-elements)) {
+    display: inline-block;
+}
+
+@include withDescendantsSelectors("inline", join($all-inline-block-elements, $all-block-descendant-elements)) {
+    display: inline;
+}
+
+@include withDescendantsSelectors("block", join($all-inline-block-elements, $all-inline-elements)) {
+    display: block;
+}
+
+
+/* RADIUS */
+
+@for $i from 1 through $radius-cap {
+    $v: $i * $radius-mult;
+
+    .border-radius-#{$v} {
+        border-radius: #{$v}px;
+    }
+}
+
+
+/* BACKGROUNDS */
+
+
+
+/*OTHER*/
+
+@include withDescendantsCommon("overflow-hide") {
+    overflow: hidden;
+}
+
+@include withDescendantsCommon("no-wrap") {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@include withDescendantsCommon("border-box") {
+    box-sizing: border-box;
+}
+
+@include withDescendantsCommon("constrain") {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+/*LISTS*/
+
+ul.bullet {
+    list-style-type: disc;
+}
+
+ol.bullet {
+    list-style-type: lower-alpha;
+}
+
+ol.bullet-clear, ul.bullet-clear {
+    list-style-type: none;
+}
+
+
+
+/* FONTS */
+
+.emph {
+    font-weight: 700;
+}
+
+.font-barcode {
+    font-family: "BC C39 3 to 1", "Lucida Console", Monaco, monospace;
+    color: #000;
+}
+
+
+.color-pop {
+    color: $color-pop;
+}
+
+.color-blend {
+    color: $color-blend;
+}
+
+.color-good {
+    color: $color-good;
+}
+
+.color-error {
+    color: $color-error;
+}
+
+.color-actionable {
+    color: $color-actionable;
+}
+
+.color-brand{
+    color: $color-brand;
+}
+
+
+
+.rejected {
+    border: $color-rejected 1px dashed;
+}
+
+
+
+/* OPACITY */
+@for $i from 1 through 10 {
+    $v: $i * 10;
+
+    .ghost-#{$v} {
+        opacity: ($v / 100);
+    }
+}
+
+
+/* WIDTHS */
+
+#{$all-text-inputs} {
+    &.width-mid {
+        width: 6.25em;
+        min-width: 6.25em;
+    }
+
+    &.width-small {
+        width: 5em;
+        min-width: 5em;
+    }
+
+    &.width-long {
+        width: 20em;
+        min-width: 20em;
+    }
+}
+
+
+
+
+
+/* FLEX */
+
+@mixin flex() {
+    display: flex;
+}
+
+@mixin flex-center() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-with-wrap() {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@mixin flex-end() {
+    display: flex;
+    justify-content: flex-end;
+}
+
+@mixin flex-aligned() {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@mixin flex-justify() {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+@mixin flex-oppose() {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.flex {
+    @include flex();
+}
+
+.flex-center {
+    @include flex-center();
+}
+
+.flex-with-wrap {
+    @include flex-with-wrap();
+}
+
+.flex-end {
+    @include flex-end();
+}
+
+.flex-aligned {
+    @include flex-aligned();
+}
+
+.flex-justify {
+    @include flex-justify();
+}
+
+.flex-oppose {
+    @include flex-oppose();
+}
+
+.flex-self-end {
+    align-self: flex-end;
+}
+
+
+
+
+/* FORM */
+
+.field-set {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    @include descendantsCommon() {
+        margin-right: margin-size($margin-base);
+        margin-bottom: margin-size($margin-base);
+    }
+}
+
+/* GENERAL */
+
+
+.scrollable {
+    overflow: auto;
+}
+
+
+.clickable {
+    cursor: default;
+}
+
+
+.visited {
+    background-image:linear-gradient(135deg, $color-line 0, $color-line 0.5em, transparent 0.5em);
+}
+
+$translucent-actionable: transparentize($color-actionable, 0.8);
+
+@include withDescendantsSelectors(action-block, div, li) {
+    cursor: default;
+    color: $color-actionable !important;
+    transition: background-image 0.3s;
+
+    &:hover {
+        background-image: linear-gradient(0, $translucent-actionable 0, $translucent-actionable 100%);
+    }
+}
+
+
+
+
+@include mediaSmall {
+
+    @include withDescendantsCommon(sm-justify-left) {
+        @include float(left);
+    }
+
+    @include withDescendantsCommon(sm-justify-right) {
+        @include float(right);
+    }
+
+    .-sm-justify-left, .-sm-justify-right {
+        overflow: hidden;
+    }
+
+    @include withDescendantsCommon(sm-above-hidden) {
+        display: none !important;
+    }
+
+
+    @include withDescendantsSelectors("sm-inline-block", join($all-inline-elements, $all-block-descendant-elements)) {
+        display: inline-block;
+    }
+
+    @include withDescendantsSelectors("sm-inline", join($all-inline-block-elements, $all-block-descendant-elements)) {
+        display: inline;
+    }
+
+    @include withDescendantsSelectors("sm-block", join($all-inline-block-elements, $all-inline-elements)) {
+        display: block;
+    }
+
+
+    @include withDescendantsCommon("sm-padding") {
+        padding: $padding-base;
+    }
+
+    @include withDescendantsCommon("sm-margin") {
+        margin:$margin-base;
+    }
+
+    .sm-flex {
+        @include flex();
+    }
+
+    .sm-flex-center {
+        @include flex-center();
+    }
+
+    .sm-flex-with-wrap {
+        @include flex-with-wrap();
+    }
+
+    .sm-flex-end {
+        @include flex-end();
+    }
+
+    .sm-flex-aligned {
+        @include flex-aligned();
+    }
+
+    .sm-flex-justify {
+        @include flex-justify();
+    }
+
+    .sm-flex-oppoose{
+    @include flex-oppose();
+}
+}
+
+@include mediaMedium {
+
+
+    @include withDescendantsCommon(md-justify-left) {
+        @include float(left);
+    }
+
+    @include withDescendantsCommon(md-justify-right) {
+        @include float(right);
+    }
+
+    .-sm-justify-left, .-sm-justify-right {
+        overflow: hidden;
+    }
+
+    @include withDescendantsCommon(md-above-hidden) {
+        display: none !important;
+    }
+
+
+    @include withDescendantsSelectors("md-inline-block", join($all-inline-elements, $all-block-descendant-elements)) {
+        display: inline-block;
+    }
+
+    @include withDescendantsSelectors("md-inline", join($all-inline-block-elements, $all-block-descendant-elements)) {
+        display: inline;
+    }
+
+    @include withDescendantsSelectors("md-block", join($all-inline-block-elements, $all-inline-elements)) {
+        display: block;
+    }
+
+
+    @include withDescendantsCommon("md-padding") {
+        padding: $padding-base;
+    }
+
+    @include withDescendantsCommon("md-margin") {
+        margin: $margin-base;
+    }
+
+    .md-flex {
+        @include flex();
+    }
+
+    .md-flex-center {
+        @include flex-center();
+    }
+
+    .md-flex-with-wrap {
+        @include flex-with-wrap();
+    }
+
+    .md-flex-end {
+        @include flex-end();
+    }
+
+    .md-flex-aligned {
+        @include flex-aligned();
+    }
+
+    .md-flex-justify {
+        @include flex-justify();
+    }
+
+    .md-flex-oppoose{
+    @include flex-oppose();
+}
+}
+
+@include mediaLarge {
+
+    @include withDescendantsCommon(lg-justify-left) {
+        @include float(left);
+    }
+
+    @include withDescendantsCommon(lg-justify-right) {
+        @include float(right);
+    }
+
+    .-sm-justify-left, .-sm-justify-right {
+        overflow: hidden;
+    }
+
+    @include withDescendantsCommon(lg-above-hidden) {
+        display: none !important;
+    }
+
+
+    @include withDescendantsSelectors("lg-inline-block", join($all-inline-elements, $all-block-descendant-elements)) {
+        display: inline-block;
+    }
+
+    @include withDescendantsSelectors("lg-inline", join($all-inline-block-elements, $all-block-descendant-elements)) {
+        display: inline;
+    }
+
+    @include withDescendantsSelectors("lg-block", join($all-inline-block-elements, $all-inline-elements)) {
+        display: block;
+    }
+
+
+    @include withDescendantsCommon("lg-padding") {
+        padding: $padding-base;
+    }
+
+    @include withDescendantsCommon("lg-margin") {
+        margin: $margin-base;
+    }
+
+
+    .lg-flex {
+        @include flex();
+    }
+
+    .lg-flex-center {
+        @include flex-center();
+    }
+
+    .lg-flex-with-wrap {
+        @include flex-with-wrap();
+    }
+
+    .lg-flex-end {
+        @include flex-end();
+    }
+
+    .lg-flex-aligned {
+        @include flex-aligned();
+    }
+
+    .lg-flex-justify {
+        @include flex-justify();
+    }
+
+    .lg-flex-oppoose{
+    @include flex-oppose();
+}
+}
+
+/* BREAK POINTS */
+
+
+@media (max-width: $breakpoint-sm) {
+    .sm-hidden {
+        display: none !important;
+    }
+
+    .sm-text-center {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: $breakpoint-md) {
+    .md-hidden {
+        display: none !important;
+    }
+
+    .md-text-center {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: $breakpoint-lg) {
+
+    .lg-hidden {
+        display: none !important;
+    }
+
+    .lg-text-center {
+        text-align: center !important;
+    }
+}

@@ -1,0 +1,50 @@
+/// <reference path="../references.scss" />;
+
+/*COLS*/
+
+@include cols('');
+
+/*ROWS*/
+@for $i from 1 through $cap {
+    $rowNum: $i * $mult;
+
+    $rowVal : #{($rowNum / 16)}em;
+
+    @include withDescendantsCommon(row-#{$rowNum}){
+        height: $rowVal;
+    }
+
+    @include withDescendantsCommon(row-max-#{$rowNum}){
+        max-height: $rowVal;
+    }
+
+
+    @include withDescendantsCommon(row-min-#{$rowNum}){
+        min-height: $rowVal;
+    }
+
+}
+
+.container{
+    width:100%;
+    max-width:$container-width;
+    margin-left:auto;
+    margin-right:auto;    
+}
+
+.center-block{
+    margin:0 auto;
+}
+
+
+@include mediaSmall{
+@include cols(sm-);
+}
+
+@include mediaMedium{
+    @include cols(md-);
+}
+
+@include mediaLarge{
+    @include cols(md-);
+}

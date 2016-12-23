@@ -1,0 +1,21 @@
+/// <reference path="../references.scss" />
+
+.heading-box{
+
+border:1px solid $color-theme-secondary;
+background-color:#FFF;
+
+
+> h2, > h3, > h4 {
+    text-align: center;
+padding:$padding-base;
+color:#FFF;
+background-color: $color-theme-secondary;
+
+}
+
+> div {
+    padding: $padding-comfy $padding-base;
+}
+
+}

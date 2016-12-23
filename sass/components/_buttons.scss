@@ -1,0 +1,147 @@
+﻿/// <reference path="../references.scss" />
+
+
+
+/* GENERIC BUTTONS */
+
+
+
+#{$all-button-elements} {
+    background-color: $color-button-fill;
+    color: $color-button-text;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+    @include button-border($color-button-border);
+    font-family: $font-family-button;
+    transition: 0.1s;
+    padding: $padding-base ($padding-base * 2);
+    text-align: center;
+    border-radius: 0.2em;
+    @include button-text-shadow($color-button-fill);
+    
+        //$color-button-fill
+
+    &:link, &:visited {
+        color: $color-button-text;
+        text-decoration:none;
+    }
+
+    &:hover {
+        background-color: $color-button-fill-active;
+        color: $color-button-text-active;
+
+        &:link, &:visited {
+            color: $color-button-text-active;
+        }
+    }
+
+    &.on {
+        background-color: $color-button-fill-active;
+    }
+
+    > span {
+        /*display: inline-block;
+        vertical-align: middle;*/
+        height: 100%;
+        //MIGHT NEED THIS??
+        /*@include form-control-line-height();*/
+    }
+
+    @include glyph-block(middle);
+
+
+    &.accent {
+        background-color: $color-accent-button-fill;
+        color: $color-accent-button-text;
+        @include button-border($color-accent-button-border);
+        
+        @include button-text-shadow($color-accent-button-fill);
+
+        &:hover {
+            background-color: tint($color-accent-button-fill-active, 30%);
+            color: $color-accent-button-text-active;
+        }
+    }
+}
+
+/* BUTTON GROUP */
+
+.button-group {
+    background-color: $color-button-group-fill;
+    border-radius: 2px;
+    overflow: hidden;
+    display: inline-flex !important;
+    max-width: 100%;
+    white-space: nowrap;
+    padding: 0;
+    color: $color-button-text;
+
+    > a, > span, > li, > .button {
+        margin: 0;
+        border-left: 1px solid mix(invert($color-button-fill), $color-button-fill, 10%);
+        text-align: center;
+        display: block;
+        padding: $padding-base ($padding-base * 1.2);
+        vertical-align: middle;
+        color: $color-button-text;
+        @include button-text-shadow($color-button-fill);
+        text-decoration:none;
+        &:link, &:visited{
+            text-decoration:none;
+        }
+
+        &:link, &:visited, &:hover, &:focus {
+            color: $color-button-text;
+        }
+
+        &:hover, &.selected {
+            @include button-selected();
+        }
+
+        &:first-child {
+            border-left: none;
+        }
+
+        @include glyph-block();
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    &.accent {
+        background-color: $color-accent-button-fill;
+        color: $color-accent-button-text;
+        
+        > a, > span, > li, > .button {
+            border-left: 1px solid mix(invert($color-accent-button-fill), $color-accent-button-fill, 10%);
+            color: $color-accent-button-text;
+            @include button-text-shadow($color-accent-button-fill);
+            &:first-child {
+                border-left: none;
+            }
+
+            &:link, &:visited, &:hover, &:focus {
+                color: $color-accent-button-text-active;
+            }
+
+            &:hover, &.selected {
+                @include button-selected($color-accent-button-fill-active, $color-accent-button-text-active);
+            }
+        }
+        
+    }
+}
+
+
+/* TOGGLE ICON */
+
+.toggle-icon {
+    transition: 0.2s;
+    color: $color-blend;
+
+    &.on {
+        color: $color-active;
+    }
+}

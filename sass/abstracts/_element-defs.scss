@@ -1,0 +1,36 @@
+﻿//TEXT INPUTS
+$inputs-list: 'input[type="email"]', 'input[type="number"]', 'input[type="password"]', 'input[type="search"]', 'input[type="tel"]', 'input[type="text"]', 'input[type="url"]',
+// Webkit & Gecko may change the display of these in the future
+'input[type="color"]', 'input[type="date"]', 'input[type="datetime"]', 'input[type="datetime-local"]', 'input[type="month"]', 'input[type="time"]', 'input[type="week"]';
+
+$inputs-list-hf: 'input[type="email"]:hover', 'input[type="number"]:hover', 'input[type="password"]:hover', 'input[type="search"]:hover', 'input[type="tel"]:hover', 'input[type="text"]:hover', 'input[type="url"]:hover', 'input[type="color"]:hover', 'input[type="date"]:hover', 'input[type="datetime"]:hover', 'input[type="datetime-local"]:hover', 'input[type="month"]:hover', 'input[type="time"]:hover', 'input[type="week"]:hover', 'input[type="email"]:focus', 'input[type="number"]:focus', 'input[type="password"]:focus', 'input[type="search"]:focus', 'input[type="tel"]:focus', 'input[type="text"]:focus', 'input[type="url"]:focus', 'input[type="color"]:focus', 'input[type="date"]:focus', 'input[type="datetime"]:focus', 'input[type="datetime-local"]:focus', 'input[type="month"]:focus', 'input[type="time"]:focus', 'input[type="week"]:focus';
+
+$block-element-list: 'address', 'article', 'aside', 'blockquote', 'canvas', 'dd', 'div', 'dl', 'fieldset', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hgroup', 'hr', 'li', 'main', 'nav', 'ol', 'output', 'table', 'ul', 'section';
+
+$block-descendant-list: 'article', 'aside', 'dd', 'div', 'dl', 'fieldset', 'form', 'li', 'ol', 'ul', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',;
+
+$inline-block-element-list: 'button', 'textarea', 'input', 'select', 'img';
+
+$inline-element-list: 'small', 'em', 'strong', 'time', 'a', 'br', 'img', 'span', 'sub', 'sup';
+
+$common-descendants-list : 'div', 'section', 'article', 'img', 'table', 'input','textarea', 'fieldset','button','select', 'ul, ol', 'li', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'address', 'p', 'aside', 'span', 'a';
+
+$buttons-list : '.button', 'input[type=submit]', 'input[type=button]', 'a.button', 'button';
+
+@function unquoteList($list) {
+    $unquoted-list: ();
+    @each $item in $list {
+        $unquoted-list: append($unquoted-list, unquote($item), comma);
+    }
+    @return $unquoted-list;
+}
+
+$all-block-elements : unquoteList($block-element-list);
+$all-inline-block-elements : unquoteList($inline-block-element-list);
+$all-inline-elements : unquoteList($inline-element-list);
+$all-block-descendant-elements : unquoteList($block-descendant-list);
+$all-common-descendant-elements : unquoteList($common-descendants-list);
+
+$all-text-inputs : unquoteList($inputs-list);
+$all-text-inputs-hf : unquoteList($inputs-list-hf);
+$all-button-elements : unquoteList($buttons-list);

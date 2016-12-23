@@ -1,0 +1,67 @@
+﻿/// <reference path="../references.scss" />;
+
+
+.scale-huge {
+    font-size: $font-size-scale-huge;
+
+    .width-small{
+        min-width:5em;
+        min-width:5.5em;
+    }
+
+}
+
+
+.scale-enormous {
+    font-size: $font-size-scale-enormous;
+
+    .width-small{
+        min-width:5em;
+        min-width:5.5em;
+    }
+
+}
+
+.scale-colossal {
+    font-size: $font-size-scale-colossal;
+
+    
+
+}
+
+
+.scale-large {
+    font-size: $font-size-scale-large;
+
+    .width-small{
+        min-width:5em;
+        min-width:5.5em;
+    }
+
+}
+
+
+.scale-small{
+
+        font-size: $font-size-scale-small;
+
+    .width-small{
+        min-width:5em;
+        min-width:5.5em;
+    }
+
+
+}
+
+
+.scale-tiny{
+
+        font-size: $font-size-scale-tiny;
+
+    .width-small{
+        min-width:5em;
+        min-width:5.5em;
+    }
+
+
+}

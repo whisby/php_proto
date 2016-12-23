@@ -1,0 +1,145 @@
+/// <reference path="../references.scss" />;
+
+
+html {
+    font-size: $font-size-base;
+
+    @include mediaSmall {
+        font-size: $font-size-base-sm;
+    }
+
+
+    @include mediaMedium {
+        font-size: $font-size-base-md;
+    }
+
+
+    @include mediaLarge {
+        font-size: $font-size-base-lg;
+    }
+
+
+    @include mediahuge {
+        font-size: $font-size-base-hg;
+    }
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: $font-family-site;
+    font-size: $font-size-normal;
+    color: $color-font-site;
+    background:$color-bg-site;
+    overflow: hidden;
+
+    &.scrollable{
+        overflow: auto;
+    }
+
+    &.dialog {
+        overflow: auto;
+    }
+    
+}
+
+
+a {
+    text-decoration: none;
+    cursor: default;
+    color: $color-font-anchor;
+    transition: color 0.5s;
+
+    &:link {
+        color: $color-font-link;
+        
+    }
+
+    &:visited {
+        color: $color-font-link-visited;
+        
+    }
+
+    &:hover, &:active {
+        color: $color-font-link-active;
+    }
+}
+
+
+p {
+    margin-bottom: (2 * $font-size-normal );
+}
+
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+
+ul, ol {
+    list-style-position: inside;
+}
+
+hr{
+    border:1px solid $color-border;
+    border-width:0 0 1px 0;
+}
+
+/* FORM STUFF */
+
+#{$all-text-inputs}, textarea {
+    font-family: $font-family-form;
+    padding: $padding-base;
+    color: $color-font-input;
+    background-color: $color-bg-input-text;
+    border: 1px solid $color-border;
+    /*outline: 1px solid $color-border;*/
+    position: relative;
+    min-width:12em;
+}
+
+
+label, span.label {
+    display: block;
+    font-size: 9px;
+
+    @include mediaMedium {
+            font-size: 0.7em;
+    }
+}
+
+/* NORMALIZE MAKE INPUTS INHERIT FONT SIZE */
+input, select, .field {
+    font-size: $font-size-normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+input, select {
+    padding: $padding-base;
+}
+
+
+
+%placeholder {
+    color: rgba(0,0,0,0.2);
+    font-family: $font-family-site;
+}
+
+::-webkit-input-placeholder {
+    @extend %placeholder;
+}
+
+::-moz-placeholder {
+    @extend %placeholder;
+}
+
+:-ms-input-placeholder {
+    @extend %placeholder;
+}

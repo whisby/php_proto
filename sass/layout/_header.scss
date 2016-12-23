@@ -1,0 +1,158 @@
+﻿/// <reference path="../references.scss" />;
+
+$header-main-padding: 0.5rem;
+
+header {
+    height: $header-height-base;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    
+    @include color-set($colorset-header);
+
+    .dialog &  {
+        display:none;
+    }
+
+    a:link, a:visited{
+        text-decoration:none;
+    }
+
+}
+
+
+
+.header-container {
+    //TODO CHANGE MAGIC NUMBER
+    height: $header-main-height-base;
+    overflow: hidden;
+    width: 100%;
+}
+
+.header-identity{
+    font-size:2em;
+    font-family: $font-family-heading;
+}
+
+
+/* NAV */
+.header-nav {
+    @include float('left');
+    overflow: hidden;
+    height: 100%;
+
+    ul {
+        @include float('left');
+        margin: 0;
+        list-style: none;
+        height: 100%;
+        padding: 0;
+
+        li {
+            @include float('left');
+            height: 100%;
+            list-style: none;
+            margin: 0 margin-size(($margin-base / 4));
+
+            a {
+                height: 100%;
+                line-height: $header-main-height-base;
+                display: inline;
+                vertical-align: middle;
+                padding: $header-main-padding;
+                @include glyph-block();
+
+                &:hover{
+                    color: $color-navigatable;
+                }
+
+            }
+        }
+    }
+}
+
+
+/* WIDGETS */
+
+$widget-width: ($header-widget-font-base * 1.4);
+
+.header-widgets {
+    @include float('right');
+    margin: 0.5% 0.5% 0 0;
+    font-size: $header-widget-font-base;
+    height: $header-widget-font-base;
+    display: flex;
+    align-content: center;
+
+    .widget {
+        width: $widget-width;
+        text-align: center;
+        height: 100%;
+        line-height: $header-widget-font-base;
+        margin-left:0.3rem;
+
+        &.login-indicator {
+        }
+
+        a {
+            height: 100%;
+            position: relative;
+            color:$color-actionable;
+
+            &:visited, &:link{
+                color:$color-actionable;
+            }
+
+            &:hover{
+                color: mix($set-bg-header-base,$color-actionable, 20%);
+            }
+
+            &.avatar {
+                width: $header-widget-font-base;
+                height: $header-widget-font-base;
+                background-color: $color-avatar-fill;
+                color: $color-avatar-text;
+                border-radius: 9999px;
+                display: block;
+                font-weight: 100;
+                text-align: center;
+                font-size: 1.2rem;
+                margin:0 auto;
+
+                &:hover{
+                    background-color: lighten($color-avatar-fill, 10%);
+                  }
+            }
+        }
+
+        .widget-title {
+            width: $widget-width;
+            position: absolute;
+            display: block;
+            text-align: center;
+            font-size: 0.65rem;
+            line-height: 0rem;
+            margin-top: 0.3rem;
+            text-align: center;
+        }
+    }
+}
+
+.header-info {
+    height: $header-info-height-base;
+}
+
+
+.header-title {
+    line-height: 1.1rem;
+    padding: 0 $header-main-padding;
+    text-align: center;
+    font-size: 1.5em;
+    font-family: $font-family-heading;
+    letter-spacing:0.03em;
+    color:tint($color-font-content, 10%);
+    font-weight:700;
+}
