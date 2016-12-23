@@ -1,4 +1,7 @@
 <?php
+
+use Proto;
+
 if (PHP_SAPI == 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
@@ -25,6 +28,9 @@ require __DIR__ . '/../src/middleware.php';
 
 // Register routes
 require __DIR__ . '/../src/routes.php';
+
+
+
 
 // Run app
 $app->run();

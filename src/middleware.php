@@ -7,9 +7,6 @@ use Psr\Http\Message\ResponseInterface as Response;
 // e.g: $app->add(new \Slim\Csrf\Guard);
 
 
-
-
-
 /** Forces Removal Of Trailing Slash */
 $app->add(function (Request $request, Response $response, callable $next) {
     $uri = $request->getUri();
@@ -29,3 +26,7 @@ $app->add(function (Request $request, Response $response, callable $next) {
 
     return $next($request, $response);
 });
+
+
+
+

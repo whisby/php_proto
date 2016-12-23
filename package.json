@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "php -S localhost:4021 -t tests tests/Functional/HomepageTest.php",
     "start": "php -S localhost:4020 -t public public/index.php"
   },
   "author": "",

@@ -1,7 +1,5 @@
 /// <reference path="../references.scss" />;
 
-/* INSTEAD OF USING PANEL  USE  BG +  BORDER-RADIUS */
-
 
 .bg-primary {
     @include color-set($colorset-primary)

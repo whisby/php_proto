@@ -15,10 +15,14 @@ try{
 return $twig->render('/layouts/site.layout.html', $args); 
 }
 catch(Exception $e){   
-header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
-
-
-return $twig->render('pages/404.html', []); 
+return HttpNotFound($twig);
 }
 
 });
+
+
+
+function HttpNotFound($twig){
+header($_SERVER["SERVER_PROTOCOL"]." 404 Not Found", true, 404);
+return $twig->render('pages/404.html', []); 
+}
